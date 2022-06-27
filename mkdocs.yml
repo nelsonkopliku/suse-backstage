@@ -1,0 +1,11 @@
+site_name: 'SUSE Backstage Documentation'
+site_description: 'Main documentation for the Developers Portal features and platform APIs'
+nav:
+  - Home: index.md
+
+plugins:
+  - techdocs-core
+
+repo_url: https://github.com/nelsonkopliku/suse-backstage
+edit_uri: edit/master/docs
+
