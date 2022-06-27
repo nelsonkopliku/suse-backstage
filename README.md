@@ -1,10 +1,6 @@
-# [Backstage](https://backstage.io)
+# SUSE Backstage
 
-This is your newly scaffolded Backstage App, Good Luck!
+An attempt to improve Developers' lives
 
-To start the app, run:
-
-```sh
-yarn install
-yarn dev
-```
+## Home
+![SUSE' Backstage home](./img/suse-backstage-home.png)
