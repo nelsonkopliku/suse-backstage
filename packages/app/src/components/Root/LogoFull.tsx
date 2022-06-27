@@ -17,9 +17,9 @@
 import React from 'react';
 import SuseLogoFull from './logo/suse-dark-background.png';
 
-const LogoFull = () => {
+const LogoFull = ({height = 60}) => {
   return <img
-    height={60}
+    height={height}
     width={'auto'}
     src={SuseLogoFull}
     style={{

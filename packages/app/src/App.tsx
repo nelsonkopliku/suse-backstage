@@ -34,6 +34,8 @@ import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { PermissionedRoute } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import { githubAuthApiRef } from '@backstage/core-plugin-api';
+import { HomePage } from './components/home/HomePage';
+import { HomepageCompositionRoot } from '@backstage/plugin-home';
 
 const app = createApp({
   apis,
@@ -73,7 +75,10 @@ const AppRouter = app.getRouter();
 
 const routes = (
   <FlatRoutes>
-    <Navigate key="/" to="catalog" />
+    {/* <Navigate key="/" to="catalog" /> */}
+    <Route path="/" element={<HomepageCompositionRoot />}>
+      <HomePage />
+    </Route>
     <Route path="/catalog" element={<CatalogIndexPage />} />
     <Route
       path="/catalog/:namespace/:kind/:name"
