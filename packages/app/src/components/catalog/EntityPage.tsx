@@ -52,6 +52,7 @@ import {
   EntityOwnershipCard,
 } from '@backstage/plugin-org';
 import { EntityTechdocsContent } from '@backstage/plugin-techdocs';
+import { EntityTodoContent } from '@backstage/plugin-todo';
 import { EmptyState } from '@backstage/core-components';
 import {
   Direction,
@@ -145,6 +146,13 @@ const overviewContent = (
   </Grid>
 );
 
+// TODO: I am a detectable todo. You will see me in the TODO section of an entity 
+const todoTab = (
+  <EntityLayout.Route path="/todos" title="TODOs">
+    <EntityTodoContent />
+  </EntityLayout.Route>
+)
+
 const serviceEntityPage = (
   <EntityLayout>
     <EntityLayout.Route path="/" title="Overview">
@@ -180,6 +188,8 @@ const serviceEntityPage = (
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
     </EntityLayout.Route>
+
+    {todoTab}
   </EntityLayout>
 );
 
@@ -207,6 +217,8 @@ const websiteEntityPage = (
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
     </EntityLayout.Route>
+
+    {todoTab}
   </EntityLayout>
 );
 
@@ -226,6 +238,8 @@ const defaultEntityPage = (
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
     </EntityLayout.Route>
+
+    {todoTab}
   </EntityLayout>
 );
 
