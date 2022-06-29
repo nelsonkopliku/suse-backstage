@@ -43,6 +43,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import CategoryIcon from '@material-ui/icons/Category';
+import { SearchModal } from '../search/SearchModal';
 
 const useSidebarLogoStyles = makeStyles({
   root: {
@@ -83,7 +84,9 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
     <Sidebar>
       <SidebarLogo />
       <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
-        <SidebarSearchModal />
+        <SidebarSearchModal>
+          {({ toggleModal }) => <SearchModal toggleModal={toggleModal} />}
+        </SidebarSearchModal>
       </SidebarGroup>
       <SidebarDivider />
       <SidebarGroup label="Menu" icon={<MenuIcon />}>

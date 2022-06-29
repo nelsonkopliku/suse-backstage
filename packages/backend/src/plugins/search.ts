@@ -1,21 +1,39 @@
 import { useHotCleanup } from '@backstage/backend-common';
+import { DefaultCatalogCollatorFactory } from '@backstage/plugin-catalog-backend';
 import { createRouter } from '@backstage/plugin-search-backend';
+import { ElasticSearchSearchEngine } from '@backstage/plugin-search-backend-module-elasticsearch';
+import { PgSearchEngine } from '@backstage/plugin-search-backend-module-pg';
 import {
   IndexBuilder,
   LunrSearchEngine,
+  SearchEngine,
 } from '@backstage/plugin-search-backend-node';
-import { PluginEnvironment } from '../types';
-import { DefaultCatalogCollatorFactory } from '@backstage/plugin-catalog-backend';
 import { DefaultTechDocsCollatorFactory } from '@backstage/plugin-techdocs-backend';
 import { Router } from 'express';
+import { PluginEnvironment } from '../types';
+
+async function createSearchEngine(
+  env: PluginEnvironment,
+): Promise<SearchEngine> {
+  if (env.config.has('search.elasticsearch')) {
+    return await ElasticSearchSearchEngine.fromConfig({
+      logger: env.logger,
+      config: env.config,
+    });
+  }
+
+  if (await PgSearchEngine.supported(env.database)) {
+    return await PgSearchEngine.from({ database: env.database });
+  }
+
+  return new LunrSearchEngine({ logger: env.logger });
+}
 
 export default async function createPlugin(
   env: PluginEnvironment,
 ): Promise<Router> {
   // Initialize a connection to a search engine.
-  const searchEngine = new LunrSearchEngine({
-    logger: env.logger,
-  });
+  const searchEngine = await createSearchEngine(env);
   const indexBuilder = new IndexBuilder({
     logger: env.logger,
     searchEngine,
@@ -30,7 +48,7 @@ export default async function createPlugin(
   });
 
   // Collators are responsible for gathering documents known to plugins. This
-  // collator gathers entities from the software catalog.
+  // particular collator gathers entities from the software catalog.
   indexBuilder.addCollator({
     schedule,
     factory: DefaultCatalogCollatorFactory.fromConfig(env.config, {
@@ -39,7 +57,6 @@ export default async function createPlugin(
     }),
   });
 
-  // collator gathers entities from techdocs.
   indexBuilder.addCollator({
     schedule,
     factory: DefaultTechDocsCollatorFactory.fromConfig(env.config, {
