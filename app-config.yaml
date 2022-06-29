@@ -1,6 +1,19 @@
 app:
   title: SUSE Backstage
   baseUrl: http://localhost:3000
+  support:
+    url: https://github.com/nelsonkopliku/suse-backstage/issues # Used by common ErrorPage
+    items: # Used by common SupportButton component
+      - title: Issues
+        icon: github
+        links:
+          - url: https://github.com/nelsonkopliku/suse-backstage/issues
+            title: GitHub Issues
+      - title: Slack Chatroom
+        icon: chat
+        links:
+          - url: https://suse.slack.com/archives/C02U4TWGKSQ
+            title: '#suse-backstage'
 
 organization:
   name: SUSE
