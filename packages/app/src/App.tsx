@@ -38,6 +38,7 @@ import { githubAuthApiRef } from '@backstage/core-plugin-api';
 import { HomePage } from './components/home/HomePage';
 import { HomepageCompositionRoot } from '@backstage/plugin-home';
 import { techDocsPage } from './components/techdocs/TechDocsPage';
+import { ExplorePage, explorePlugin } from '@backstage/plugin-explore';
 
 const app = createApp({
   apis,
@@ -104,6 +105,7 @@ const routes = (
     </Route>
     <Route path="/create" element={<ScaffolderPage />} />
     <Route path="/api-docs" element={<ApiExplorerPage />} />
+    <Route path="/explore" element={<ExplorePage />} />
     <Route
       path="/tech-radar"
       element={<TechRadarPage width={1500} height={800} />}
